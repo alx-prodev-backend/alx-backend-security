@@ -1,0 +1,49 @@
+# ALX Backend Security Project - IP Tracker
+
+## Overview
+This project is a Django-based IP Tracker with enhanced security and analytics features. It implements IP logging, geolocation, rate limiting, and anomaly detection to secure and monitor your backend application.
+
+---
+
+## Features
+
+### 1. IP Logging
+- Logs every incoming request along with timestamp and path.
+- Middleware checks if IP is blocked before processing requests.
+- IP logs stored in `RequestLog` model.
+
+### 2. IP Geolocation Analytics
+- Uses `django-ipgeolocation` to track country and city for each IP.
+- Geolocation data cached for 24 hours to reduce API calls.
+- Enhances logging in `RequestLog` model.
+
+### 3. Rate Limiting
+- Uses `django-ratelimit` to limit requests:
+  - Authenticated users: 10 requests/min
+  - Anonymous users: 5 requests/min
+- Applied to sensitive views like login to prevent abuse.
+
+### 4. Anomaly Detection
+- Uses Celery to run hourly checks for suspicious activity.
+- Suspicious IPs are flagged and stored in `SuspiciousIP` model.
+- Rules:
+  - IPs exceeding 100 requests/hour.
+  - Accessing sensitive paths (`/admin`, `/login`).
+- Helps detect potential attacks and unusual behavior.
+
+---
+
+## Installation
+
+### Prerequisites
+- Docker & Docker Compose
+- Python 3.11
+- PostgreSQL
+- Redis
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/alx-prodev-backend/alx-backend-security.git
+cd alx-backend-security
