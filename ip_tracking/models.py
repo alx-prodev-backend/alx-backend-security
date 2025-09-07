@@ -11,7 +11,7 @@ class RequestLog(models.Model):
 
 
 # blocked Ips
-class BlockedIp(models.Model):
+class BlockedIP(models.Model):
     ip_address = models.GenericIPAddressField(unique=True)
 
     def __str__(self):
