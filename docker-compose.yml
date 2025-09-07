@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    container_name: django_ip_tracker
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    container_name: postgres_ip_tracker
+    environment:
+      POSTGRES_DB: iptracker_db
+      POSTGRES_USER: iptracker_user
+      POSTGRES_PASSWORD: iptracker_pass
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    container_name: redis_ip_tracker
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    container_name: celery_ip_tracker
+    command: celery -A alx_travel_app worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db
