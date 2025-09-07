@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ip_tracking.apps.IpTrackingConfig',
+'ip_tracking.apps.IpTrackingConfig', # fix
 ]
 
 MIDDLEWARE = [
