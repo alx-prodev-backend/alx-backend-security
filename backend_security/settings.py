@@ -74,12 +74,20 @@ WSGI_APPLICATION = 'backend_security.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "iptracker_db",
+        "USER": "iptracker_user",
+        "PASSWORD": "iptracker_pass",
+        "HOST": "db",
+        "PORT": "5432",
     }
 }
 
+
+# Redis + Celery settings
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
