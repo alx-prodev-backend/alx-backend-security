@@ -1,6 +1,7 @@
 """
 Django settings for backend_security project.
 """
+from celery.schedules import crontab
 
 from pathlib import Path
 import environ
@@ -98,6 +99,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+
+CELERY_BEAT_SCHEDULE = {
+    "detect-anomalous-ips-every-hour": {
+        "task": "ip_tracking.tasks.detect_anomalous_ips",
+        "schedule": crontab(minute=0),  # runs at the start of every hour
+    },
+}
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
