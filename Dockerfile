@@ -16,5 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY . .
 
-# Run the Django app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Expose port (optional)
+EXPOSE 8000
+
+# Run the Django app with migrations applied
+CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn backend_security.wsgi:application --bind 0.0.0.0:8000"]
