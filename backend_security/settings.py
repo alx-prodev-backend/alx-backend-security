@@ -109,3 +109,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Rate limiting defaults
+RATELIMIT_ENABLE = True
+RATELIMIT_USE_CACHE = 'default'  #  Redis cache
